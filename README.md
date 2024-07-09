@@ -25,3 +25,7 @@ To do:
 * Tests!
 * Linting/cleanup
 
+Running tests:
+
+From archivesspace project directory:
+`./build/run backend:test -Dspec="../../plugins/caas_aspace_refid"`
