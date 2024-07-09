@@ -21,6 +21,7 @@ Working
 
 To do:
 * Modify built in ref_id plugin or extend our own to make use of these increments.
+* Validations
 * Add permissions for new endpoints
 * Tests!
 * Linting/cleanup
