@@ -9,7 +9,7 @@ Sequel.migration do
 
       Integer :resource_id, :null => true
 
-      Integer :next_refid, :default => 0, :null => false
+      Integer :next_refid, :default => 1, :null => false
 
       apply_mtime_columns
     end

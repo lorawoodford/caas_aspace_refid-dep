@@ -26,6 +26,9 @@ To do:
 * Tests!
 * Linting/cleanup
 
+Decisions
+* Currently basically copying existing ref_id plugin in here and slightly modifying.  Does it make more sense to just enable the stock plugin?  What do we think the future maintainability of this will be?
+
 Running tests:
 
 From archivesspace project directory:
