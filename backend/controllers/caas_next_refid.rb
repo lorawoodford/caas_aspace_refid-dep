@@ -1,6 +1,6 @@
 class ArchivesSpaceService < Sinatra::Base
 
-  Endpoint.post('/caas_next_refid')
+  Endpoint.post('/plugins/caas_next_refid')
     .description("Get next ref_id for provided resource")
     .params(["resource_id", Integer, "The resource id", :required => "true"])
     .permissions([])
@@ -18,15 +18,6 @@ class ArchivesSpaceService < Sinatra::Base
     end
 
     json_response(:resource_id => params[:resource_id], :next_refid => incremented_id)
-  end
-
-
-  Endpoint.get('/caas_aspace_refid')
-    .description("Get a list of ref_ids")
-    .permissions([])
-    .returns([200, "[(:caas_next_refid)]"]) \
-  do
-    handle_unlimited_listing(CaasAspaceRefid)
   end
 
 end
