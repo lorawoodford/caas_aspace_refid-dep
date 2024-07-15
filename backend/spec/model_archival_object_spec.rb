@@ -36,7 +36,7 @@ describe 'ArchivalObject model' do
   end
 
   context 'when the next_refid endpoint fails to return a ref_id' do
-    let(:refid_fallback) { DateTime.now.strftime('%s')[0..-1] }
+    let(:refid_fallback) { DateTime.now.strftime('%s')[0..-2] }
 
     describe '#generate_ref_id' do
       it 'returns a unique date string' do
