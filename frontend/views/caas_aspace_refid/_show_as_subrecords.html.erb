@@ -1,0 +1,8 @@
+<% render_aspace_partial :partial => "caas_aspace_refid/template" %>
+
+<section id="<%= section_id %>" class="subrecord-form-dummy">
+  <h3><%= I18n.t("caas_aspace_refid._plural") %></h3>
+    <div class="subrecord-form-container">
+      <% context.emit_template("caas_aspace_refid") %>
+    </div>
+</section>

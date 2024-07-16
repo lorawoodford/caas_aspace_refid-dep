@@ -1,0 +1,7 @@
+<% define_template "caas_aspace_refid", jsonmodel_definition(:archival_object) do |form| %>
+	<div class="subrecord-form-fields">
+		<%= form.label_and_boolean "caas_regenerate_ref_id" %>
+	</div>
+<% end %>
+
+<%= hidden_field(:archival_object, :caas_regenerate_ref_id, {value: 1}) %>
