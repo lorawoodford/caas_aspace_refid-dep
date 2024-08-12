@@ -3,8 +3,11 @@ name: Diff views
 on: push
 
 jobs:
-  diff:
+  example_matrix:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [v3.3.1]
     steps:
     - name: Checkout current plugin
       uses: actions/checkout@v4
@@ -18,7 +21,7 @@ jobs:
       with:
         fetch-depth: 0
         fetch-tags: true
-        ref: v2.2.0
+        ref: ${{ matrix.version }}
         repository: lorawoodford/archivesspace
         path: archivesspace
         sparse-checkout: |
