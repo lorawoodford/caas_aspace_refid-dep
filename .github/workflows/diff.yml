@@ -25,5 +25,4 @@ jobs:
           frontend/app/views
 
     - name: Get diff
-      run: echo "::set-output name=git-diff::$(git diff --diff-filter=M -w -- ${{ github.workspace }}/plugin/frontend/views ${{ github.workspace }}/archivesspace/frontend/app/views || echo true)"
-
+      run: echo "::set-output name=git-diff::$(git diff --diff-filter=M -w -- ${{ github.workspace }}/plugin/frontend/views ${{ github.workspace }}/archivesspace/frontend/app/views)"
