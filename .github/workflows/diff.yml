@@ -1,0 +1,29 @@
+name: Diff views
+
+on: push
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout current plugin
+      uses: actions/checkout@v4
+      with:
+        path: plugin
+        sparse-checkout: |
+          frontend/views
+
+    - name: Checkout ArchivesSpace repo
+      uses: actions/checkout@v4
+      with:
+        # fetch-depth: 0
+        # fetch-tags: true
+        ref: SI-v3.3.1
+        repository: lorawoodford/archivesspace
+        path: archivesspace
+        sparse-checkout: |
+          frontend/app/views
+
+    - name: Get diff
+      run: echo "::set-output name=git-diff::$(git diff -w -- ${{ github.workspace }}/plugin/frontend/views ${{ github.workspace }}/archivesspace/frontend/app/views || echo true)"
+
