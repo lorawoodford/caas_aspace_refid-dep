@@ -3,11 +3,11 @@ name: Diff views
 on: push
 
 jobs:
-  example_matrix:
+  diff:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [v3.3.1]
+        version: [v3.3.1, v3.4.1, v3.5.1]
     steps:
     - name: Checkout current plugin
       uses: actions/checkout@v4
