@@ -15,6 +15,7 @@ jobs:
         path: plugin
         sparse-checkout: |
           frontend/views
+          .archivesspace-version
 
     - name: Checkout ArchivesSpace baseline repo
       uses: actions/checkout@v4
@@ -40,7 +41,9 @@ jobs:
 
     - name: Diff with baseline
       id: baseline
-      run: echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+      run: |
+        echo "::set-output name=testing::${{ github.workspace }}/plugin/.archivesspace-version"
+        echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
    
     - name: Diff with new versions
       id: new
