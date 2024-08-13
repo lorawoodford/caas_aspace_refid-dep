@@ -23,8 +23,8 @@ jobs:
     - name: Checkout ArchivesSpace baseline repo
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
-        fetch-tags: true
+        # fetch-depth: 0
+        # fetch-tags: true
         ref: ${{ env.PROD_ARCHIVESSPACE_VERSION }}
         repository: lorawoodford/archivesspace
         path: archivesspace-baseline
