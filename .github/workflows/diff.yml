@@ -27,7 +27,7 @@ jobs:
       with:
         fetch-depth: 0
         fetch-tags: true
-        ref: echo $ASPACE_VERSION
+        ref: $ASPACE_VERSION
         repository: lorawoodford/archivesspace
         path: archivesspace-baseline
         sparse-checkout: |
