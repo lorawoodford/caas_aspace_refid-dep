@@ -16,6 +16,17 @@ jobs:
         sparse-checkout: |
           frontend/views
 
+    - name: Checkout ArchivesSpace baseline repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+        ref: v3.3.1
+        repository: lorawoodford/archivesspace
+        path: archivesspace-baseline
+        sparse-checkout: |
+          frontend/app/views
+
     - name: Checkout ArchivesSpace repo
       uses: actions/checkout@v4
       with:
@@ -27,5 +38,8 @@ jobs:
         sparse-checkout: |
           frontend/app/views
 
-    - name: Get diff
-      run: echo "::set-output name=has_changes::$((git diff --diff-filter=M -w -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views | egrep "^\-" && echo 'true') || echo 'false')"
+    - name: Get baseline diff
+      run: echo "::set-output name=baseline_changes::$((git diff --diff-filter=M -w -- ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views | egrep "^\-") || echo 'true')"
+   
+    - name: Get new diff
+      run: echo "::set-output name=has_changes::$((git diff --diff-filter=M -w -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views | egrep "^\-") || echo 'true')"
