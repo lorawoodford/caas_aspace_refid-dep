@@ -10,7 +10,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        version: [v3.3.1, v3.4.1, v3.5.1]
+        archivesspace_version: [v3.3.1, v3.4.1, v3.5.1]
     steps:
 
     - name: Checkout current plugin
@@ -59,6 +59,6 @@ jobs:
     - name: Diffs do not match
       if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
       run: |
-        echo "Some views overridden by this plugin do not match those in ArchivesSpace ${{ matrix.version }}.  See:"
+        echo "Some views overridden by this plugin do not match those in ArchivesSpace ${{ matrix.archivesspace_version }}.  See:"
         echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
         exit 1
