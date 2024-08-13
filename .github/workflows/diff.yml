@@ -58,4 +58,4 @@ jobs:
       if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
       run: |
         echo "We do not match"
-        echo "::set-output name=review_changes::$(git diff --diff-filter=M -w -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views | egrep "^\-")"
+        echo "::set-output name=review_changes::$(git diff --diff-filter=M -w -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
