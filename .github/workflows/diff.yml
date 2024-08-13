@@ -39,7 +39,10 @@ jobs:
           frontend/app/views
 
     - name: Get baseline diff
+      id: baseline
       run: echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
    
     - name: Get new diff
-      run: echo "::set-output name=has_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+      run: |
+        echo "::set-output name=has_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views > output.txt)"
+        echo "${{ steps.baseline.outputs.baseline_changes }}"
