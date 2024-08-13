@@ -45,7 +45,7 @@ jobs:
     - name: Diff with new versions
       id: new
       run: |
-        echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views > output.txt)"
+        echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
     - name: Echo diffs
       run: |
