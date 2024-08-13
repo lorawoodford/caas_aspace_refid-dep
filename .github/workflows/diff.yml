@@ -47,18 +47,18 @@ jobs:
       run: |
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
-    # - name: Matching diffs
-    #   if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
-    #   run: |
-    #     echo "${{ steps.baseline.outputs.baseline_changes }}"
-    #     echo "${{ steps.new.outputs.new_changes }}"
-    #     echo "We match"
+    - name: Matching diffs
+      if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
+      run: |
+        echo "${{ steps.baseline.outputs.baseline_changes }}"
+        echo "${{ steps.new.outputs.new_changes }}"
+        echo "We match"
 
-    # - name: New diffs
-    #   if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
-    #   run: |
-    #     echo "We do not match"
-    #     echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+    - name: New diffs
+      if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
+      run: |
+        echo "We do not match"
+        echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
     - name: One go
       run: |
