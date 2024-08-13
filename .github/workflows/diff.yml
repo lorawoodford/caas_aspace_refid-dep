@@ -5,6 +5,8 @@ on: push
 jobs:
   diff:
     runs-on: ubuntu-latest
+    env:
+      PROD_ARCHIVESSPACE_VERSION: v3.3.1
     strategy:
       matrix:
         version: [v3.3.1, v3.4.1, v3.5.1]
@@ -42,7 +44,6 @@ jobs:
     - name: Diff with baseline
       id: baseline
       run: |
-        echo "::set-output name=testing::${{ github.workspace }}/plugin/.archivesspace-version"
         echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
    
     - name: Diff with new versions
@@ -61,7 +62,7 @@ jobs:
     - name: Diffs do not match
       if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
       run: |
-        echo "${{ steps.baseline.outputs.testing }}"
+        echo "$PROD_ARCHIVESSPACE_VERSION"
         echo "Some views overridden by this plugin do not match those in ArchivesSpace ${{ matrix.version }}.  See:"
         echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
         exit 1
