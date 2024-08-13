@@ -38,11 +38,17 @@ jobs:
         sparse-checkout: |
           frontend/app/views
 
-    - name: Get baseline diff
+    - name: Diff with baseline
       id: baseline
       run: echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
    
-    - name: Get new diff
+    - name: Diff with new versions
+      id: new
       run: |
-        echo "::set-output name=has_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views > output.txt)"
+        echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views > output.txt)"
+
+    - name: Echo diffs
+      run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
+        echo "${{ steps.new.outputs.new_changes }}"
+        echo "$(${{ steps.baseline.outputs.baseline_changes }} == ${{ steps.new.outputs.new_changes }})"
