@@ -61,6 +61,7 @@ jobs:
     - name: Diffs do not match
       if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
       run: |
+        echo "${{ steps.baseline.outputs.testing }}"
         echo "Some views overridden by this plugin do not match those in ArchivesSpace ${{ matrix.version }}.  See:"
         echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
         exit 1
