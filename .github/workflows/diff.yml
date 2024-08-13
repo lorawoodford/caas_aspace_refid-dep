@@ -45,8 +45,7 @@ jobs:
     - name: Diff with new versions
       id: new
       run: |
-        echo "new_changes2=$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)" > $GITHUB_OUTPUT
-        echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+        echo "new_changes=$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)" > $GITHUB_OUTPUT
 
     - name: Diffs match
       continue-on-error: true
