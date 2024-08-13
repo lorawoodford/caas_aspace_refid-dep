@@ -47,17 +47,17 @@ jobs:
       run: |
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
-    - name: Matching diffs
+    - name: Diffs match
       continue-on-error: true
       if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
       run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
         echo "${{ steps.new.outputs.new_changes }}"
-        echo "We match"
+        echo "All views overridden by this plugin match v3.3.1 of ArchivesSpace"
 
-    - name: New diffs
+    - name: Diffs do not match
       if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
       run: |
-        echo "We do not match"
+        echo "Some views overridden by this plugin do not match those in ArchivesSpace ${{ matrix.version }}.  See:"
         echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
         exit 1
