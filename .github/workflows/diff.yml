@@ -46,10 +46,18 @@ jobs:
       id: new
       run: |
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+        echo "::set-output name=review_changes::$(git diff --diff-filter=M ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
-    - name: Echo diffs
+    - name: Matching diffs
       if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
       run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
         echo "${{ steps.new.outputs.new_changes }}"
         echo "We match"
+
+    - name: New diffs
+      if: ${{ steps.baseline.outputs.baseline_changes != steps.new.outputs.new_changes }}
+      run: |
+        echo "We do not match"
+        echo "${{ steps.new.outputs.review_changes }}"
+        exit 1
