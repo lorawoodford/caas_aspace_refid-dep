@@ -48,7 +48,8 @@ jobs:
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
     - name: Echo diffs
+      if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
       run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
         echo "${{ steps.new.outputs.new_changes }}"
-        echo "$(${{ steps.baseline.outputs.baseline_changes }} == ${{ steps.new.outputs.new_changes }})"
+        echo "We match"
