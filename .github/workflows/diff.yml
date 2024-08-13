@@ -18,7 +18,6 @@ jobs:
         path: plugin
         sparse-checkout: |
           frontend/views
-          .archivesspace-version
 
     - name: Checkout ArchivesSpace baseline repo
       uses: actions/checkout@v4
@@ -46,6 +45,7 @@ jobs:
     - name: Diff with new versions
       id: new
       run: |
+        echo "new_changes2=$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)" > $GITHUB_OUTPUT
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
     - name: Diffs match
@@ -54,6 +54,7 @@ jobs:
       run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
         echo "${{ steps.new.outputs.new_changes }}"
+        echo "${{ steps.new.outputs.new_changes2 }}"
         echo "All views overridden by this plugin match $PROD_ARCHIVESSPACE_VERSION of ArchivesSpace"
 
     - name: Diffs do not match
