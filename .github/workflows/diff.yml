@@ -40,7 +40,7 @@ jobs:
     - name: Diff with baseline
       id: baseline
       run: |
-        echo "::set-output name=baseline_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
+        echo "baseline_changes=$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace-baseline/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)" > $GITHUB_OUTPUT
    
     - name: Diff with new versions
       id: new
