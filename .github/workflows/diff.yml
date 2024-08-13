@@ -48,6 +48,7 @@ jobs:
         echo "::set-output name=new_changes::$(git diff --diff-filter=M --shortstat ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
 
     - name: Matching diffs
+      continue-on-error: true
       if: ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }}
       run: |
         echo "${{ steps.baseline.outputs.baseline_changes }}"
@@ -59,14 +60,4 @@ jobs:
       run: |
         echo "We do not match"
         echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
-
-    - name: One go
-      run: |
-        if [[ ${{ steps.baseline.outputs.baseline_changes == steps.new.outputs.new_changes }} ]]; then
-          echo "${{ steps.baseline.outputs.baseline_changes }}"
-          echo "${{ steps.new.outputs.new_changes }}"
-          echo "We match"
-        else
-          echo "We do not match"
-          echo "::set-output name=review_changes::$(git diff --diff-filter=M -w --color -- ${{ github.workspace }}/archivesspace/frontend/app/views ${{ github.workspace }}/plugin/frontend/views)"
-        fi
+        exit 1
